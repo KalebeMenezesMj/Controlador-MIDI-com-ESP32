@@ -145,9 +145,3 @@ http://192.168.4.1
 - ✅ Dashboard responsivo
 - ✅ BLE MIDI funcionando
 - ✅ Configuração persistente com LittleFS
-
----
-
-## 📄 Licença
-
-Distribuído sob a licença MIT. Veja [`LICENSE`](./LICENSE) para mais detalhes.
