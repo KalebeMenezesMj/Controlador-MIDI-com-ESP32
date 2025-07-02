@@ -1,0 +1,441 @@
+/* style.css - V3 Refatorado */
+
+/* --- Variáveis Globais --- */
+:root {
+  --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-monospace: "SF Mono", "Consolas", "Menlo", monospace;
+
+  --color-background: #161b22;        /* GitHub Dark Dimmed Background */
+  --color-surface: #22272e;         /* Ligeiramente mais claro para superfícies */
+  --color-border: #373e47;          /* Bordas */
+  --color-input-bg: #1c2128;        /* Fundo de inputs */
+  --color-input-border: var(--color-border);
+  --color-input-focus-border: #58a6ff; /* Azul GitHub para foco */
+  
+  --text-primary: #c9d1d9;          /* Texto principal */
+  --text-secondary: #8b949e;        /* Texto secundário, placeholders */
+  --text-heading: #f0f6fc;          /* Títulos */
+  --text-link: var(--color-input-focus-border);
+
+  --accent-primary: var(--color-input-focus-border);
+  --accent-secondary: #3fb950;      /* Verde GitHub para sucesso/ações positivas */
+  --accent-danger: #f85149;         /* Vermelho GitHub */
+  
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.1);
+  --shadow-md: 0 3px 6px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.1);
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --input-height: 40px;
+  --transition-fast: 0.15s ease-out;
+  --transition-normal: 0.2s ease-out;
+}
+
+/* --- Reset e Base --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--text-primary);
+  font-size: 15px; /* Ligeiramente menor para um look mais "denso" */
+  line-height: 1.6;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-lg) var(--spacing-md);
+}
+
+/* --- Cabeçalho, Principal, Rodapé --- */
+.app-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+}
+.app-header h1 {
+  font-size: 2.2em;
+  color: var(--text-heading);
+  font-weight: 600;
+}
+.app-header h1 .icon {
+  margin-right: var(--spacing-sm);
+  color: var(--accent-primary);
+  font-size: 1.1em; /* Ajusta o tamanho do emoji/ícone */
+}
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.app-footer {
+  text-align: center;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+/* --- Elementos Comuns de Formulário --- */
+.form-group {
+  margin-bottom: var(--spacing-lg);
+}
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: block;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: var(--text-secondary); /* Labels um pouco mais suaves */
+  margin-bottom: var(--spacing-sm);
+}
+
+input[type="number"],
+input[type="text"],
+select {
+  width: 100%;
+  height: var(--input-height);
+  padding: 0 var(--spacing-md);
+  background-color: var(--color-input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-md);
+  font-size: 0.95em;
+  font-family: var(--font-primary);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-input-focus-border);
+  box-shadow: 0 0 0 3px rgba(var(--color-input-focus-border), 0.2);
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none; margin: 0;
+}
+input[type=number] { -moz-appearance: textfield; }
+
+select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%238b949e%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: right var(--spacing-md) center;
+  background-size: .65em auto;
+  padding-right: calc(var(--spacing-md) * 2.5); /* Espaço para a seta */
+}
+
+fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md); /* Espaçamento entre fieldsets */
+}
+legend {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 0 var(--spacing-sm);
+  margin-left: var(--spacing-sm); /* Pequeno recuo */
+}
+
+/* --- Componente Card --- */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-md);
+  padding: var(--spacing-lg);
+}
+.card-header {
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+.card-header h3 { /* Títulos dentro dos cards de botão */
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin: 0;
+  padding: 0;
+  border: none; /* Remove borda esquerda de h3 padrão */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chip {
+  font-size: 0.75em;
+  font-weight: 500;
+  background-color: var(--color-input-bg);
+  color: var(--text-secondary);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* --- Painéis Específicos --- */
+.global-settings-panel h2,
+.buttons-panel h2 {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--text-heading);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.range-control {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+.range-control input[type="range"] {
+  flex-grow: 1;
+  height: 8px;
+  -webkit-appearance: none; appearance: none;
+  background: var(--color-input-bg);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1px solid var(--color-input-border);
+}
+.range-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  border: 2px solid var(--color-surface);
+}
+.range-control input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  border: 2px solid var(--color-surface); cursor: pointer;
+}
+.range-value-display {
+  font-weight: 500;
+  min-width: 30px;
+  text-align: center;
+  background-color: var(--color-input-bg);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  border: 1px solid var(--color-input-border);
+}
+
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.button-config-card .mode-selector .select-mode {
+  font-weight: 500; /* Destacar o seletor de modo */
+}
+.button-config-card .params-group { /* params-cc, params-pc */
+  /* A classe 'hidden' já controla a visibilidade */
+  padding-top: var(--spacing-sm);
+}
+.button-config-card .params-group fieldset {
+  background-color: rgba(var(--color-input-focus-border), 0.05); /* Fundo sutil para fieldsets de params */
+  border-color: rgba(var(--color-input-focus-border), 0.3);
+}
+.button-config-card .params-group legend {
+  color: var(--color-input-focus-border);
+  font-weight: 600;
+}
+
+
+/* Configuração de Cor */
+.color-picker-group .color-input-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  background-color: var(--color-input-bg);
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-input-border);
+}
+.color-swatch { /* input type="color" */
+  width: var(--input-height);
+  height: var(--input-height);
+  min-width: var(--input-height); /* Evitar encolhimento */
+  padding: var(--spacing-xs);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+.rgb-inputs {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-grow: 1;
+}
+.rgb-input-group {
+  display: flex;
+  align-items: center;
+  flex-grow: 1; /* Para os inputs ocuparem espaço */
+  background-color: var(--color-surface); /* Fundo interno para os inputs RGB */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+}
+.rgb-input-group .rgb-label {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  padding: 0 var(--spacing-sm);
+  margin-bottom: 0; /* Remover margem de label global */
+  border-right: 1px solid var(--color-border);
+}
+.input-rgb { /* input type="number" para R,G,B */
+  text-align: center;
+  border: none !important; /* Remover bordas padrão */
+  background-color: transparent !important; /* Fundo transparente */
+  box-shadow: none !important; /* Remover sombra de foco */
+  height: calc(var(--input-height) - 2*var(--spacing-xs) - 2px); /* Ajustar altura */
+  padding: 0 var(--spacing-xs);
+}
+.color-preview-box {
+  width: calc(var(--input-height) - var(--spacing-sm));
+  height: calc(var(--input-height) - var(--spacing-sm));
+  min-width: calc(var(--input-height) - var(--spacing-sm));
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* Snapshot LEDs (Checkboxes) */
+.snapshot-config fieldset {
+  background-color: transparent;
+}
+.snapshot-config legend {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: var(--spacing-sm) var(--spacing-md);
+}
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent-primary);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.checkbox-group label { /* Label do checkbox */
+  font-size: 0.9em;
+  font-weight: normal;
+  color: var(--text-primary);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+/* Botão de Ações Principal */
+.form-actions {
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end; /* Alinhar à direita */
+}
+.button-primary {
+  display: inline-flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 0 var(--spacing-lg);
+  height: calc(var(--input-height) + 4px);
+  background-color: var(--accent-secondary);
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+.button-primary:hover {
+  background-color: hsl(from var(--accent-secondary) h s calc(l + 5%));
+  transform: translateY(-1px);
+}
+.button-primary:active {
+  background-color: hsl(from var(--accent-secondary) h s calc(l - 5%));
+  transform: translateY(0);
+}
+.button-primary .icon {
+  font-size: 1.1em;
+}
+
+/* Classe Utilitária */
+.hidden {
+  display: none !important;
+}
+
+/* Mensagens de Feedback */
+.loading-message, .error-message {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-md);
+  text-align: center;
+  margin: var(--spacing-lg) 0;
+  font-size: 1em;
+}
+.loading-message {
+  background-color: rgba(var(--accent-primary), 0.1);
+  color: var(--accent-primary);
+  border: 1px solid rgba(var(--accent-primary), 0.3);
+}
+.error-message {
+  background-color: rgba(var(--accent-danger), 0.1);
+  color: var(--accent-danger);
+  border: 1px solid rgba(var(--accent-danger), 0.3);
+}
+#buttonsContainer:empty::before {
+  content: "Nenhuma configuração de botão para exibir. Clique em 'Adicionar Botão' ou carregue uma configuração.";
+  display: block;
+  padding: var(--spacing-xl);
+  text-align: center;
+  color: var(--text-secondary);
+  background-color: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+  .app-container { padding: var(--spacing-md) var(--spacing-sm); }
+  .app-header h1 { font-size: 1.8em; }
+  .button-grid { grid-template-columns: 1fr; /* Uma coluna em telas menores */ }
+  .form-actions { justify-content: center; } /* Centralizar botão de salvar */
+  .button-primary { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 { font-size: 1.6em; }
+  .card { padding: var(--spacing-md); }
+  .card-header h3 { font-size: 1.1em; }
+  .color-picker-group .color-input-row { flex-direction: column; align-items: stretch; }
+  .rgb-inputs { width: 100%; }
+  .color-preview-box { align-self: center; margin-top: var(--spacing-sm); }
+  .checkbox-grid { grid-template-columns: 1fr; /* Checkboxes em uma única coluna */ }
+}
